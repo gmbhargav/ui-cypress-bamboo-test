@@ -1,4 +1,4 @@
-class RegistrationPage {
+export class RegistrationPage {
     elements = {
       firstNameInput: () => cy.get('#firstname'),
       lastNameInput: () => cy.get('#lastname'),
@@ -6,17 +6,18 @@ class RegistrationPage {
       passwordInput: () => cy.get('#password'),
       confirmPasswordInput: () => cy.get('#password-confirmation'),
       submitButton: () => cy.get('.submit'),
-      errorMessage: () => cy.get('.message-error'),
+      errorMessage: () => cy.get('.mage-error'),
+      existingEmailError: () => cy.get('.messages div'),
       passwordError: () => cy.get('#password-error'),
       successMessage: () => cy.get('.message-success')
     };
   
     navigateToRegistration() {
-      cy.get('.authorization-link a').contains('Create an Account').click();
+      cy.get('.page-header ul').contains('Create an Account').click();
     }
   
     fillRegistrationForm({ firstName, lastName, email, password, confirmPassword }) {
-      this.elements.firstNameInput().type(firstName);
+      this.elements.firstNameInput().should('be.visible').type(firstName);
       this.elements.lastNameInput().type(lastName);
       this.elements.emailInput().type(email);
       this.elements.passwordInput().type(password);
@@ -30,10 +31,11 @@ class RegistrationPage {
     getErrorMessage() {
       return this.elements.errorMessage();
     }
+    getExistingEmailErrorMessage() {
+      return this.elements.existingEmailError();
+    }
   
     getPasswordError() {
       return this.elements.passwordError();
     }
   }
-  
-  export default RegistrationPage;
