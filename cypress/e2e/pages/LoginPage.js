@@ -17,4 +17,10 @@ export class LoginPage {
     submitLogin() {
       this.elements.loginButton().click();
     }
+
+    login(email, password) {
+      this.navigateToLogin();
+      this.fillLoginForm(email, password);
+      this.submitLogin();
+    }
   }

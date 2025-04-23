@@ -9,7 +9,7 @@ module.exports = defineConfig({
     screenshotsFolder: 'cypress/screenshots',
     videosFolder: 'cypress/videos',
     downloadsFolder: 'cypress/downloads',
-    video: true,
+    video: false,
     videoCompression: 32,
     trashAssetsBeforeRuns: true,
     defaultCommandTimeout: 10000,
