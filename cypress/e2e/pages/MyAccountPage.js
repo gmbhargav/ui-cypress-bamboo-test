@@ -12,7 +12,7 @@ export class MyAccountPage {
     }
   
     getSuccessMessage() {
-      return this.elements.successMessage().ti;
+      return this.elements.successMessage();
     }
   
     getWelcomeMessage() {

@@ -43,13 +43,11 @@ describe('Registration Flow with Login Validation', () => {
     cy.url().should('include', '/customer/account/');
 
      // Verify successful registration
-    //  myAccountPage.getPageTitle()
-    //  .should('be.visible')
-    //  .and('contain', 'My Account');
-    // console.log('Actual Success text:', myAccountPage.getSuccessMessage());
-    // myAccountPage.getSuccessMessage()
-    //   .should('be.visible')
-    //   .and('contain', 'Thank you for registering');
+     myAccountPage.getPageTitle().should('contain', 'My Account');
+    console.log('Actual Success text:', myAccountPage.getSuccessMessage());
+    myAccountPage.getSuccessMessage()
+      .should('be.visible')
+      .and('contain', 'Thank you for registering');
     
     // Logout to test login functionality
     myAccountPage.logout();
@@ -64,5 +62,50 @@ describe('Registration Flow with Login Validation', () => {
     console.log('Actual Welcome text:', myAccountPage.getWelcomeMessage());
     console.log('Expected Welcome text:', `Welcome, ${testData.valid.firstName} ${testData.valid.lastName}!`);
     myAccountPage.getWelcomeMessage().should('contain', `Welcome, ${testData.valid.firstName} ${testData.valid.lastName}!`);
+  });
+
+  it('should show error for existing email registration', () => {
+    registrationPage.fillRegistrationForm({
+      firstName: testData.invalid.existingEmail.firstName,
+      lastName: testData.invalid.existingEmail.lastName,
+      email: testData.invalid.existingEmail.email,
+      password: testData.invalid.existingEmail.password,
+      confirmPassword: testData.invalid.existingEmail.password
+    });
+
+    registrationPage.submitRegistration();
+
+    // Verify error message for existing email
+    registrationPage.getExistingEmailErrorMessage().should('contain', 'There is already an account with this email address');
+  });
+
+  it('should show error for password mismatch', () => {
+    registrationPage.fillRegistrationForm({
+      firstName: testData.invalid.passwordMismatch.firstName,
+      lastName: testData.invalid.passwordMismatch.lastName,
+      email: `test_${new Date().getTime()}@example.com`,
+      password: testData.invalid.passwordMismatch.password,
+      confirmPassword: 'different_password'
+    });
+
+    registrationPage.submitRegistration();
+
+    // Verify error message for password mismatch
+    registrationPage.getErrorMessage().should('contain', 'Please enter the same value again');
+  });
+
+  it('should show error for weak password', () => {
+    registrationPage.fillRegistrationForm({
+      firstName: testData.invalid.weakPassword.firstName,
+      lastName: testData.invalid.weakPassword.lastName,
+      email: `test_${new Date().getTime()}@example.com`,
+      password: testData.invalid.weakPassword.password,
+      confirmPassword: testData.invalid.weakPassword.password
+    });
+
+    registrationPage.submitRegistration();
+
+    // Verify error message for weak password
+    registrationPage.getPasswordError().should('contain', 'Minimum length of this field must be equal or greater than 8');
   });
 });
