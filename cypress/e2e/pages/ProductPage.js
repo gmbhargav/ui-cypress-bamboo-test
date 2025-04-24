@@ -23,17 +23,6 @@ export class ProductPage {
         cy.wait(2000); // Wait for the hover effect to take place
         return this;
       }
-    
-    //   clickAddToCart() {
-    //     this.elements.addToCartButton().should('be.visible').click();
-    //     return this;
-    //   }
-    
-      // addProductToCart() {
-      //   // this.hoverOverProduct();
-      //   this.clickAddToCart();
-      //   return this;
-      // }
   
     setQuantity(qty) {
       this.elements.quantityInput().clear().type(qty);
@@ -53,5 +42,16 @@ export class ProductPage {
     getSuccessMessage() {
       cy.wait(2000);
       return this.elements.successMessage();
+    }
+
+    // Add these methods to your existing ProductPage class
+    addToWishlist() {
+      return cy.get('.product-addto-links').children('.action.towishlist').click();
+    }
+
+    verifyAddToWishlistSuccess(productName) {
+      return  cy.get('.message-success',{multiple: true})
+        .should('be.visible')
+        .and('contain', `${productName} has been added to your Wish List`);
     }
   }

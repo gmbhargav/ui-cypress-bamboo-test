@@ -72,10 +72,9 @@ export class CheckoutPage {
       this.elements.zipInput().type(address.zip);
       this.elements.countrySelect().select(address.country);
       this.elements.phoneInput().type(address.phone);
+     }
     }
   
-      return this;
-    }
   
     /**
      * Select shipping method
@@ -93,8 +92,7 @@ export class CheckoutPage {
      * @param {string} method - Payment method name (e.g., "Credit Card")
      */
     selectPaymentMethod(method) {
-      this.elements.paymentMethods().check(method, { force: true });
-      return this;
+      return this.elements.paymentMethods().check(method, { force: true });
     }
   
     /**

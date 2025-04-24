@@ -31,6 +31,7 @@ module.exports = defineConfig({
       charts: true,
       code: true
     },
+    experimentalStudio:true,
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },

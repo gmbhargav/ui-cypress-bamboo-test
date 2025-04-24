@@ -9,3 +9,4 @@ cypress/reports/assets/app.js
 cypress/reports/
 cypress/videos/
 cypress/screenshots/
+.DS_Store

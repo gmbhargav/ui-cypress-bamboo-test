@@ -6,7 +6,7 @@ import { CheckoutPage } from '../pages/CheckoutPage';
 import { LoginPage } from '../pages/LoginPage';
 
 describe('Place Order with Multiple Products (Price Calculation Checks)', () => {
-    let userData;
+  let userData;
   const homePage = new HomePage();
   const productPage = new ProductPage();
   const cartPage = new ShoppingCartPage();
@@ -108,4 +108,19 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
     checkoutPage.getSuccessMessage().should('contain', 'Thank you for your purchase!');
     checkoutPage.getOrderNumber().should('exist');
   });
+  it('should verify empty cart message after removing all items', () => {
+    // Go to cart
+    homePage.goToCart();
+
+    // Remove all items from cart
+    cartPage.getProductNames().then(productNames => {
+      productNames.forEach((productName) => {
+        cartPage.getProductRow(productName).find('.action.delete').click();
+      });
+    });
+
+    // Verify empty cart message
+    cartPage.elements.emptyCartMessage().should('be.visible');
+  });
+
 });

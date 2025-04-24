@@ -1,0 +1,16 @@
+[
+    {
+      "name": "Radiant Tee",
+      "quantity": 1,
+      "size": "L",
+      "color": "Orange",
+       "price": "22.00"
+    },
+    {
+      "name": "Argus All-Weather Tank",
+      "quantity": 1,
+      "size": "S",
+      "color": "Gray",
+       "price": "22.00"
+    }
+]
