@@ -3,6 +3,7 @@ export class CheckoutPage {
     // Element selectors
     elements = {
       // Shipping Address Section
+      selectedShippingAddress: () => cy.get('.shipping-address-item.selected-item'),
       emailInput: () => cy.get('#customer-email'),
       firstNameInput: () => cy.get('[name="firstname"]'),
       lastNameInput: () => cy.get('[name="lastname"]'),
@@ -18,13 +19,16 @@ export class CheckoutPage {
       // Shipping Method Section
       shippingMethods: () => cy.get('[name="shipping_method"]'),
       shippingMethodLabel: (method) => cy.contains('.shipping-method label', method),
+
+      nextButton: () => cy.get('.action.primary.continue'),
+      shippingMethodContinueButton: () => cy.get('.shipping-method._active button.checkout'),
   
       // Payment Method Section
       paymentMethods: () => cy.get('[name="payment[method]"]'),
       placeOrderButton: () => cy.get('.payment-method._active button.checkout'),
   
       // Order Summary Section
-      orderSummary: () => cy.get('.opc-block-summary'),
+      orderSummary: () => cy.get('.opc-block-summary'), 
       subtotalPrice: () => cy.get('.subtotal .price'),
       shippingPrice: () => cy.get('.shipping .price'),
       taxPrice: () => cy.get('.tax .price'),
@@ -44,11 +48,13 @@ export class CheckoutPage {
      *   email, firstName, lastName, company, street1, street2, city, state, zip, country, phone
      */
     fillShippingAddress(address) {
-      if (address.email) {
-        this.elements.emailInput().type(address.email);
-      }
-  
+      // if (address.email) {
+      //   this.elements.emailInput().type(address.email);
+      // }
+      if(this.elements.selectedShippingAddress().length ==0) {
+      this.elements.firstNameInput().clear();
       this.elements.firstNameInput().type(address.firstName);
+      this.elements.lastNameInput().clear();
       this.elements.lastNameInput().type(address.lastName);
   
       if (address.company) {
@@ -66,6 +72,7 @@ export class CheckoutPage {
       this.elements.zipInput().type(address.zip);
       this.elements.countrySelect().select(address.country);
       this.elements.phoneInput().type(address.phone);
+    }
   
       return this;
     }
@@ -75,10 +82,12 @@ export class CheckoutPage {
      * @param {string} method - Shipping method name (e.g., "Flat Rate")
      */
     selectShippingMethod(method) {
-      this.elements.shippingMethodLabel(method).click();
-      return this;
+      return this.elements.shippingMethodLabel(method).click();
     }
-  
+    
+    selcteNextButton() {
+     return  this.elements.nextButton().click();
+    }
     /**
      * Select payment method
      * @param {string} method - Payment method name (e.g., "Credit Card")
@@ -92,8 +101,7 @@ export class CheckoutPage {
      * Place order
      */
     placeOrder() {
-      this.elements.placeOrderButton().click();
-      return this;
+     return this.elements.placeOrderButton().click();
     }
   
     /**

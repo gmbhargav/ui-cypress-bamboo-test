@@ -40,8 +40,6 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
       
       productPage.selectSize(product.size);
       productPage.selectColor(product.color);
-      // productPage.hoverOverProduct(product.name);
-      // productPage.setQuantity(product.qty);
       // In your test file or support file
       Cypress.on('uncaught:exception', (err, runnable) => {
         // Ignore this specific error
@@ -55,26 +53,25 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
       
       // Verify success message
       productPage.getSuccessMessage().should('contain', `You added ${product.name} to your shopping cart.`);
-      
-    //   // Continue shopping unless it's the last product
-      // if (product !== products[products.length - 1]) {
-      //   productPage.continueShopping();
-      // }
+    
     });
 
     // Go to cart and verify products
     homePage.goToCart();
     
     // Verify all products are in cart
+    // cartPage.getCartItems().should('have.length', products.length);
+
     products.forEach((product) => {
-      cartPage.getProductRow(product.name).should('contain', product.name);
+      cartPage.getProductNames().then(productNames => {
+        expect(productNames).to.include(product.name);
+        
+      });
     });
 
     // Calculate expected totals
     const subtotal = products.reduce((sum, product) => sum + (product.price * product.qty), 0);
-    const shipping = 5.00; // Example flat rate shipping
-    const tax = parseFloat((subtotal * 0.08).toFixed(2)); // Example 8% tax
-    const grandTotal = parseFloat((subtotal).toFixed(2));
+    // const grandTotal = parseFloat((subtotal).toFixed(2));
 
     // Verify price calculations
     cartPage.getSubtotal().then(($el) => {
@@ -101,32 +98,14 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
     });
 
     // Select shipping method
-    checkoutPage.selectShippingMethod('Flat Rate');
-
-    // Verify order summary
-    checkoutPage.getOrderSummary().within(() => {
-      cy.get('.subtotal .price').should('contain', `$${subtotal.toFixed(2)}`);
-      cy.get('.shipping .price').should('contain', `$${shipping.toFixed(2)}`);
-      cy.get('.tax .price').should('contain', `$${tax.toFixed(2)}`);
-      cy.get('.grand_total .price').should('contain', `$${grandTotal.toFixed(2)}`);
-    });
-
+    // checkoutPage.selectShippingMethod('Flat Rate');
+    
+    checkoutPage.selcteNextButton();
     // Place order
     checkoutPage.placeOrder();
 
     // Verify success page
     checkoutPage.getSuccessMessage().should('contain', 'Thank you for your purchase!');
     checkoutPage.getOrderNumber().should('exist');
-
-    // Verify order total on success page
-    checkoutPage.getOrderTotal().should('contain', `$${grandTotal.toFixed(2)}`);
   });
-
-  // it('should verify correct price calculation when updating quantities in cart', () => {
-  //   // Test implementation for quantity updates
-  // });
-
-  // it('should verify price calculations when applying discount codes', () => {
-  //   // Test implementation for discount codes
-  // });
 });

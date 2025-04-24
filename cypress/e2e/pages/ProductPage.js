@@ -5,9 +5,9 @@ export class ProductPage {
       colorOptions: () => cy.get('.swatch-option.color'),
       quantityInput: () => cy.get('#qty'),
       // addToCartButton: () => cy.get('.product-addtocart-button',{ multiple: true }).first(),
-      addToCartButton: () => cy.get('#product-addtocart-button'),
+      addToCartButton: () => cy.get('#product-addtocart-button',{timeout:10000}),
       continueShoppingButton: () => cy.get('.action.continue'),
-      successMessage: () => cy.get('.message-success')
+      successMessage: () => cy.get('.message-success',{timeout:10000}),
     };
   
     selectSize(size) {
@@ -29,11 +29,11 @@ export class ProductPage {
     //     return this;
     //   }
     
-      addProductToCart() {
-        // this.hoverOverProduct();
-        this.clickAddToCart();
-        return this;
-      }
+      // addProductToCart() {
+      //   // this.hoverOverProduct();
+      //   this.clickAddToCart();
+      //   return this;
+      // }
   
     setQuantity(qty) {
       this.elements.quantityInput().clear().type(qty);
@@ -41,7 +41,8 @@ export class ProductPage {
     }
   
     addToCart() {
-      return this.elements.addToCartButton().should('be.visible').click()
+      this.elements.addToCartButton().should('be.visible').click()
+      return this.elements.addToCartButton().should('be.visible');
     }
   
     continueShopping() {
@@ -50,6 +51,7 @@ export class ProductPage {
     }
   
     getSuccessMessage() {
+      cy.wait(2000);
       return this.elements.successMessage();
     }
   }
