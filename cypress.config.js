@@ -24,8 +24,10 @@ module.exports = defineConfig({
     reporterOptions: {
       reportDir: 'cypress/reports',
       overwrite: true,
+      screenshots: true,
       html: true,
       json: true,
+      embedScreenshots: true, 
       timestamp: 'mmddyyyy_HHMMss',
       reportTitle: 'Magento Test Report',
       charts: true,

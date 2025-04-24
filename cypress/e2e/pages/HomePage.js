@@ -3,15 +3,17 @@ export class HomePage {
   elements = {
     searchItem: () => cy.get('#search'),
     searchButton: () => cy.get('.action.search'),
+    suggestionsDropdown: () => cy.get('#search_autocomplete'),
+    suggestionItems: () => cy.get('.search-autocomplete li'),
     cartIcon: () => cy.get('.showcart'),
     viewCartButton: () => cy.get('.viewcart'),
     productItem: () => cy.get('.product-item'),
   };
 
     searchProduct(productName) {
-      this.elements.searchItem().should('be.visible').clear();
+      this.elements.searchItem().should('be.visible').clear().type(productName);;
       // this.elements.searchItem().type(productName,+ '{enter}');
-      this.elements.searchItem().type(productName);
+      // this.elements.searchItem().type(productName);
       return this.elements.searchButton().should('be.visible').click();
     }
   
@@ -24,5 +26,16 @@ export class HomePage {
       cy.get('.showcart').should('be.visible').click();
       return cy.get('.viewcart').should('be.visible').click();
      
+    }
+    typeInSearch(term) {
+      return this.elements.searchItem().clear().type(term,+'{space}');
+    }
+  
+    verifySearchSuggestionsVisible() {
+      return this.elements.suggestionsDropdown().should('be.visible');
+    }
+  
+    verifySuggestionsContain(text) {
+      return this.elements.suggestionItems().should('contain', text);
     }
   }

@@ -16,3 +16,17 @@
 // Import commands.js using ES2015 syntax:
 import 'cypress-mochawesome-reporter/register';
 import "cypress-real-events";
+// Ensure consistent screenshot paths
+// Cypress.Screenshot.defaults({
+//     screenshotOnRunFailure: true,
+//     capture: 'fullPage',
+//     disableTimersAndAnimations: true,
+//     scale: true,
+//     onBeforeScreenshot() {
+//       // Remove any command log
+//       Cypress.$('.command-wrapper').hide();
+//     },
+//     onAfterScreenshot() {
+//       Cypress.$('.command-wrapper').show();
+//     }
+//   });

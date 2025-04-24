@@ -1,0 +1,22 @@
+{
+    "validSearches": [
+      {
+        "term": "Tee",
+        "minResults": 5,
+        "expectedProduct": "Radiant Tee"
+      },
+      {
+        "term": "Pierce",
+        "minResults": 1,
+        "expectedProduct": "Pierce Gym Short"
+      }
+    ],
+    "invalidSearch": {
+      "term": "xyz123nonexistent",
+      "minResults": 0
+    },
+    "partialSearch": {
+      "term": "Te ",
+      "expectedSuggestions": ["tee", "tees"]
+    }
+  }
