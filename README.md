@@ -1,35 +1,23 @@
 # ui-cypress-bamboo-test
-Cypress Automation Test Suite
-Overview
-This repository contains automated UI tests for an e-commerce website using Cypress with Page Object Model pattern.
+    # Cypress Automation Test Suite
+        # Overview
+         This repository contains automated UI tests for an e-commerce website using Cypress with Page Object Model pattern.
+    # Test Cases Covered
+        ** 1.Registration flow with login validation **
+        ** 2.Place order with multiple products (price calculation checks) **
+        ** 3. Add products to wishlist and checkout from wishlist **
+        ** 4. Search and validate results **
 
-Test Cases Covered
-Registration flow with login validation
+    # Prerequisites
+        Node.js (v16 or higher recommended)
+        npm (comes with Node.js)        
+        Git
 
-Place order with multiple products (price calculation checks)
-
-Add products to wishlist and checkout from wishlist
-
-Search and validate results
-
-Prerequisites
-Node.js (v16 or higher recommended)
-
-npm (comes with Node.js)
-
-Git
-
-Installation
-Clone the repository:
-
-bash
-git clone https://github.com/your-username/cypress-automation.git
-cd cypress-automation
-Install dependencies:
-
-bash
-npm install
-
+    # Installation
+        Clone the repository:
+        `` git clone https://github.com/your-username/cypress-automation.git`` 
+    # Install dependencies:
+        `` npm install``
 Running Tests
 Run all tests
 bash
