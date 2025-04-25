@@ -52,11 +52,9 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
         
       });
     });
-
     // Calculate expected totals
     const subtotal = products.reduce((sum, product) => sum + (product.price * product.qty), 0);
     // const grandTotal = parseFloat((subtotal).toFixed(2));
-
     // Verify price calculations
     cartPage.getSubtotal().then(($el) => {
       const displayedSubtotal = parseFloat($el.text().replace('$', ''));
@@ -83,7 +81,6 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
 
     // Select shipping method
     // checkoutPage.selectShippingMethod('Flat Rate');
-    
     checkoutPage.selcteNextButton();
     // Place order
     checkoutPage.placeOrder();

@@ -29,9 +29,7 @@
  `npx cypress open`
 ## Reports
  * HTML reports with screenshots are generated in:
-    * cypress/reports/
-    * To generate the report:
-        `npm run posttest`
+    * cypress/reports/html/index.html
 ## Project Structure
     **  cypress/
             e2e/tests           # Test specs
