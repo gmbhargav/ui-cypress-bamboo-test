@@ -5,8 +5,6 @@ node_modules
 node_modules/.package-lock.json
 node_modules/
 cypress/.DS_Store
-cypress/reports/assets/app.js
-cypress/reports/
 cypress/videos/
 cypress/screenshots/
 .DS_Store

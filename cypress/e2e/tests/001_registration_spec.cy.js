@@ -9,7 +9,6 @@ describe('Registration Flow with Login Validation', () => {
   const loginPage = new LoginPage();
 
   // Load test data from fixture file
-  // This is a good practice to keep test data separate from test logic
   before(() => {
     cy.fixture('registrationData').then((data) => {
       testData = data;

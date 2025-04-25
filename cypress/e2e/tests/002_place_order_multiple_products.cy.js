@@ -27,6 +27,7 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
   });
 
   it('should place order with multiple products and verify price calculations', () => {
+    // Cypress.on('uncaught:exception', () => true);
     // Test data
     const products = [
       { name: 'Radiant Tee', size: 'M', color: 'Blue', qty: 1, price: 22.00 },
@@ -35,22 +36,7 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
 
     // Add products to cart
     products.forEach((product) => {
-      homePage.searchProduct(product.name);
-      homePage.selectProduct(product.name);
-      
-      productPage.selectSize(product.size);
-      productPage.selectColor(product.color);
-      // In your test file or support file
-      Cypress.on('uncaught:exception', (err, runnable) => {
-        // Ignore this specific error
-        if (err.message.includes('AddFotoramaVideoEvents')) {
-          return false; // prevent Cypress from failing the test
-        }
-        // return true for other errors so they still fail the test
-        return true;
-      });
-      productPage.addToCart();
-      
+      productPage.addProductToCart(product.name,product.size,product.color);
       // Verify success message
       productPage.getSuccessMessage().should('contain', `You added ${product.name} to your shopping cart.`);
     
@@ -60,8 +46,6 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
     homePage.goToCart();
     
     // Verify all products are in cart
-    // cartPage.getCartItems().should('have.length', products.length);
-
     products.forEach((product) => {
       cartPage.getProductNames().then(productNames => {
         expect(productNames).to.include(product.name);
@@ -109,13 +93,23 @@ describe('Place Order with Multiple Products (Price Calculation Checks)', () => 
     checkoutPage.getOrderNumber().should('exist');
   });
   it('should verify empty cart message after removing all items', () => {
+    const products = [
+      { name: 'Radiant Tee', size: 'S', color: 'Purple', qty: 1, price: 22.00 },
+    ];
+      // Add products to cart
+      products.forEach((product) => {
+        productPage.addProductToCart(product.name,product.size,product.color);
+        // Verify success message
+        productPage.getSuccessMessage().should('contain', `You added ${product.name} to your shopping cart.`);
+      });
+  
     // Go to cart
     homePage.goToCart();
 
     // Remove all items from cart
     cartPage.getProductNames().then(productNames => {
       productNames.forEach((productName) => {
-        cartPage.getProductRow(productName).find('.action.delete').click();
+        cartPage.deleteProduct(productName);
       });
     });
 

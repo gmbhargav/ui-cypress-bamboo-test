@@ -22,7 +22,7 @@ describe('Wishlist Functionality and Checkout', () => {
     cy.fixture('wishlistProducts').then((data) => {
       products = data;
     });
-    cy.fixture('userCredentials').then((data) => {
+    cy.fixture('registrationData').then((data) => {
       user = data;
     });
   });
@@ -32,7 +32,7 @@ describe('Wishlist Functionality and Checkout', () => {
     cy.visit('/');
     cy.clearCookies();
     cy.clearLocalStorage();
-    loginPage.login(user.email, user.password);
+    loginPage.login(user.valid.email, user.valid.password);
   });
 
     it('should add products to wishlist and checkout from wishlist', () => {  
@@ -52,11 +52,6 @@ describe('Wishlist Functionality and Checkout', () => {
               });
             productPage.addToWishlist();
             productPage.verifyAddToWishlistSuccess(product.name);
-            
-            // Continue browsing unless it's the last product
-        //   if (product !== this.products[this.products.length - 1]) {
-        //     cy.go('back');
-        //   }
         });
   
       // 2. Navigate to wishlist
@@ -119,8 +114,4 @@ describe('Wishlist Functionality and Checkout', () => {
       wishlistPage.navigateToWishlist();
       wishlistPage.verifyWishlistEmpty();
     });
-
-//   it('should handle out of stock products in wishlist', function() {
-//     // Test implementation for out of stock scenarios
-//   });
 });

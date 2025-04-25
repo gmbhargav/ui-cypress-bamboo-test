@@ -2,14 +2,14 @@
     "valid": {
       "firstName": "Test",
       "lastName": "User",
-      "email": "testuser@example.com",
+      "email": "testuser_23042025@example.com",
       "password": "Test@1234"
     },
     "invalid": {
       "existingEmail": {
         "firstName": "Existing",
         "lastName": "User",
-        "email": "testuser_23042025@example.com",
+        "email": "bhargava_test@test.com",
         "password": "Test@1234"
       },
       "passwordMismatch": {

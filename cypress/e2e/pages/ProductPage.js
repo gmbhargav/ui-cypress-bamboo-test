@@ -1,5 +1,7 @@
 export class ProductPage {
     elements = {
+      searchItem: () => cy.get('#search'),
+      searchButton: () => cy.get('.action.search'),
       productItem: () => cy.get('.product-item'),
       sizeOptions: () => cy.get('.swatch-option.text'),
       colorOptions: () => cy.get('.swatch-option.color'),
@@ -9,6 +11,14 @@ export class ProductPage {
       continueShoppingButton: () => cy.get('.action.continue'),
       successMessage: () => cy.get('.message-success',{timeout:10000}),
     };
+    searchProduct(productName) {
+      this.elements.searchItem().should('be.visible').clear().type(productName);;
+      return this.elements.searchButton().should('be.visible').click();
+    }
+    selectProduct(productName) {
+      return  cy.get('.product-item-link',{ multiple: true }).contains(productName).first().click();
+    }
+  
   
     selectSize(size) {
       return this.elements.sizeOptions().contains(size).click();
@@ -54,4 +64,13 @@ export class ProductPage {
         .should('be.visible')
         .and('contain', `${productName} has been added to your Wish List`);
     }
+
+    addProductToCart(name,size,color) { 
+      this.searchProduct(name);
+      this.selectProduct(name);
+      this.selectSize(size);
+      this.selectColor(color);
+      return this.addToCart();
+    }
+
   }

@@ -44,10 +44,8 @@ describe('Search and Validate Results', () => {
   it('should show search suggestions', () => {
     // Type partial search term
     homePage.typeInSearch(searchData.partialSearch.term);
-
     // Verify suggestions
     homePage.verifySearchSuggestionsVisible();
-    
     searchData.partialSearch.expectedSuggestions.forEach((suggestion) => {
       homePage.verifySuggestionsContain(suggestion);
     });

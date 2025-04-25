@@ -1,0 +1,152 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 2,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-04-25T05:47:23.920Z",
+    "end": "2025-04-25T05:47:42.327Z",
+    "duration": 18407,
+    "testsRegistered": 3,
+    "passPercent": 66.66666666666666,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "e46cd3a3-a300-432c-b9c6-a88ea1716aeb",
+      "title": "",
+      "fullFile": "cypress/e2e/tests/004_search_and_validate.cy.js",
+      "file": "cypress/e2e/tests/004_search_and_validate.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "2c55e5b3-e7cd-4407-80cf-6805465f6643",
+          "title": "Search and Validate Results",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should return valid results for search terms",
+              "fullTitle": "Search and Validate Results should return valid results for search terms",
+              "timedOut": null,
+              "duration": 8984,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "{\n  \"title\": \"cypress-mochawesome-reporter-screenshots\",\n  \"value\": [\n    [\n      \"/004_search_and_validate.cy.js/Search and Validate Results -- should return valid results for search terms (failed).png\"\n    ]\n  ]\n}",
+              "code": "searchData.validSearches.forEach(searchCase => {\n  // Perform search\n  homePage.searchProduct(searchCase.term);\n  // Verify search results\n  searchResultsPage.verifySearchResultsPage(searchCase.term);\n  searchResultsPage.verifyMinimumResults(searchCase.minResults);\n  searchResultsPage.verifyProductInResults(searchCase.expectedProduct);\n  searchResultsPage.verifyAllProductsContainTerm(searchCase.term);\n  searchResultsPage.verifySearchTermPersisted(searchCase.term);\n  // Go back to home page for next search\n  cy.visit('/');\n});",
+              "err": {
+                "message": "AssertionError: expected '' to include 'tee'",
+                "estack": "AssertionError: expected '' to include 'tee'\n    at Context.eval (webpack://ui-cypress-bamboo-test/./cypress/e2e/pages/SearchResultsPage.js:25:46)\n    at Context.callback (https://magento.softwaretestingboard.com/__cypress/runner/cypress_runner.js:119851:26)\n    at getRet (https://magento.softwaretestingboard.com/__cypress/runner/cypress_runner.js:119616:20)\n    at tryCatcher (https://magento.softwaretestingboard.com/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://magento.softwaretestingboard.com/__cypress/runner/cypress_runner.js:4285:29)\n    at thenFn (https://magento.softwaretestingboard.com/__cypress/runner/cypress_runner.js:119627:66)",
+                "diff": null
+              },
+              "uuid": "0a0197de-e7e8-4ec9-822c-0845be67d78e",
+              "parentUUID": "2c55e5b3-e7cd-4407-80cf-6805465f6643",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should handle invalid search terms",
+              "fullTitle": "Search and Validate Results should handle invalid search terms",
+              "timedOut": null,
+              "duration": 5790,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Perform invalid search\nhomePage.searchProduct(searchData.invalidSearch.term);\n// Verify no results\nsearchResultsPage.verifyNoResultsMessage(searchData.invalidSearch.term);",
+              "err": {},
+              "uuid": "194b5331-ca61-4693-b03d-5904bbad0282",
+              "parentUUID": "2c55e5b3-e7cd-4407-80cf-6805465f6643",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should show search suggestions",
+              "fullTitle": "Search and Validate Results should show search suggestions",
+              "timedOut": null,
+              "duration": 3482,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Type partial search term\nhomePage.typeInSearch(searchData.partialSearch.term);\n// Verify suggestions\nhomePage.verifySearchSuggestionsVisible();\nsearchData.partialSearch.expectedSuggestions.forEach(suggestion => {\n  homePage.verifySuggestionsContain(suggestion);\n});",
+              "err": {},
+              "uuid": "6fd4bc8d-4cac-4c44-bbba-4c15f8305735",
+              "parentUUID": "2c55e5b3-e7cd-4407-80cf-6805465f6643",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "194b5331-ca61-4693-b03d-5904bbad0282",
+            "6fd4bc8d-4cac-4c44-bbba-4c15f8305735"
+          ],
+          "failures": [
+            "0a0197de-e7e8-4ec9-822c-0845be67d78e"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 18256,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportTitle": "Magento Test Report",
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true,
+        "screenshots": true,
+        "embedScreenshots": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

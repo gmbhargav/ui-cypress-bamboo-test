@@ -1,0 +1,166 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-04-25T05:44:57.132Z",
+    "end": "2025-04-25T05:45:40.104Z",
+    "duration": 42972,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "195be893-b122-46fc-b726-daedd1488845",
+      "title": "",
+      "fullFile": "cypress/e2e/tests/001_registration_spec.cy.js",
+      "file": "cypress/e2e/tests/001_registration_spec.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "aa805acc-1a3e-4cad-bc19-5ec104a50133",
+          "title": "Registration Flow with Login Validation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should successfully register a new account",
+              "fullTitle": "Registration Flow with Login Validation should successfully register a new account",
+              "timedOut": null,
+              "duration": 23249,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Generate unique email for each test run\nconst timestamp = Date.now();\nconst uniqueEmail = `testuser_${timestamp}@example.com`;\n// Fill registration form with test data\nregistrationPage.fillRegistrationForm({\n  firstName: testData.valid.firstName,\n  lastName: testData.valid.lastName,\n  email: uniqueEmail,\n  password: testData.valid.password,\n  confirmPassword: testData.valid.password\n});\nregistrationPage.submitRegistration();\n// Add wait for page transition (better to use explicit waits for elements)\ncy.url().should('include', '/customer/account/');\n// Verify successful registration\nmyAccountPage.getPageTitle().should('contain', 'My Account');\nconsole.log('Actual Success text:', myAccountPage.getSuccessMessage());\nmyAccountPage.getSuccessMessage().should('be.visible').and('contain', 'Thank you for registering');\n// Logout to test login functionality\nmyAccountPage.logout();\n// Test login with newly created credentials\nloginPage.navigateToLogin();\nloginPage.fillLoginForm(uniqueEmail, testData.valid.password);\nloginPage.submitLogin();\n// Verify successful login\nmyAccountPage.getPageTitle().should('contain', 'My Account');\nconsole.log('Actual Welcome text:', myAccountPage.getWelcomeMessage());\nconsole.log('Expected Welcome text:', `Welcome, ${testData.valid.firstName} ${testData.valid.lastName}!`);\nmyAccountPage.getWelcomeMessage().should('contain', `Welcome, ${testData.valid.firstName} ${testData.valid.lastName}!`);",
+              "err": {},
+              "uuid": "8f98698a-6fdc-484f-9450-c88b1d291146",
+              "parentUUID": "aa805acc-1a3e-4cad-bc19-5ec104a50133",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should show error for existing email registration",
+              "fullTitle": "Registration Flow with Login Validation should show error for existing email registration",
+              "timedOut": null,
+              "duration": 7727,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "registrationPage.fillRegistrationForm({\n  firstName: testData.invalid.existingEmail.firstName,\n  lastName: testData.invalid.existingEmail.lastName,\n  email: testData.invalid.existingEmail.email,\n  password: testData.invalid.existingEmail.password,\n  confirmPassword: testData.invalid.existingEmail.password\n});\nregistrationPage.submitRegistration();\n// Verify error message for existing email\nregistrationPage.getExistingEmailErrorMessage().should('contain', 'There is already an account with this email address');",
+              "err": {},
+              "uuid": "bf43b580-6c8d-447a-a977-27c7b5249932",
+              "parentUUID": "aa805acc-1a3e-4cad-bc19-5ec104a50133",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should show error for password mismatch",
+              "fullTitle": "Registration Flow with Login Validation should show error for password mismatch",
+              "timedOut": null,
+              "duration": 5965,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "registrationPage.fillRegistrationForm({\n  firstName: testData.invalid.passwordMismatch.firstName,\n  lastName: testData.invalid.passwordMismatch.lastName,\n  email: `test_${new Date().getTime()}@example.com`,\n  password: testData.invalid.passwordMismatch.password,\n  confirmPassword: 'different_password'\n});\nregistrationPage.submitRegistration();\n// Verify error message for password mismatch\nregistrationPage.getErrorMessage().should('contain', 'Please enter the same value again');",
+              "err": {},
+              "uuid": "0bd71142-d86e-4b91-a640-1d142ffc491c",
+              "parentUUID": "aa805acc-1a3e-4cad-bc19-5ec104a50133",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should show error for weak password",
+              "fullTitle": "Registration Flow with Login Validation should show error for weak password",
+              "timedOut": null,
+              "duration": 5891,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "registrationPage.fillRegistrationForm({\n  firstName: testData.invalid.weakPassword.firstName,\n  lastName: testData.invalid.weakPassword.lastName,\n  email: `test_${new Date().getTime()}@example.com`,\n  password: testData.invalid.weakPassword.password,\n  confirmPassword: testData.invalid.weakPassword.password\n});\nregistrationPage.submitRegistration();\n// Verify error message for weak password\nregistrationPage.getPasswordError().should('contain', 'Minimum length of this field must be equal or greater than 8');",
+              "err": {},
+              "uuid": "5cc93b7c-3745-45f7-8955-5bd3da68c672",
+              "parentUUID": "aa805acc-1a3e-4cad-bc19-5ec104a50133",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8f98698a-6fdc-484f-9450-c88b1d291146",
+            "bf43b580-6c8d-447a-a977-27c7b5249932",
+            "0bd71142-d86e-4b91-a640-1d142ffc491c",
+            "5cc93b7c-3745-45f7-8955-5bd3da68c672"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 42832,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportTitle": "Magento Test Report",
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true,
+        "screenshots": true,
+        "embedScreenshots": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
