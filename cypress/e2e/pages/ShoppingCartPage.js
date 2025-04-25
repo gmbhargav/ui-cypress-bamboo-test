@@ -37,7 +37,6 @@ export class ShoppingCartPage {
   
     getSubtotal() {
       cy.wait(5000); // Wait for the cart to load
-      // cy.get('.loading-mask', { timeout: 10000 }).should('not.be.visible');
       this.elements.subtotalPrice().should('not.have.class', 'loading');
       this.elements.subtotalPrice().should('not.have.class', 'loading-mask');
       this.elements.subtotalPrice().should('be.visible');
