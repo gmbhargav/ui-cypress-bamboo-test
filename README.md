@@ -22,7 +22,7 @@
 ## Install dependencies:
  `npm install`
 ## Running Tests
- `npm run test`
+ `npm test`
 ## Run specific test suite
  `npx cypress run --spec "cypress/e2e/001_registration_spec.cy.js"`
 ## Open Cypress Test Runner
